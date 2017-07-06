@@ -7,3 +7,7 @@ Blog Article: [Very simple add, edit, delete, view in PHP & MySQL](http://blog.c
 
 SQL script to create database and tables is present in **database.sql** file.
 
+
+### Improved by @nyderetna
+
+with bootstrap and ajax
