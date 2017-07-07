@@ -2,6 +2,8 @@
 //including the database connection file
 include("config.php");
 
+//var_dump($_GET['id']); die();
+
 //getting id of the data from url
 $id = $_GET['id'];
 
@@ -9,6 +11,6 @@ $id = $_GET['id'];
 $result = mysqli_query($mysqli, "DELETE FROM users WHERE id=$id");
 
 //redirecting to the display page (index.php in our case)
-header("Location:index.php");
+//header("Location:index.php");
 ?>
 
