@@ -7,7 +7,8 @@ error_reporting(E_ERROR | E_PARSE);
 <html>
 <head>	
 	<title>Homepage</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -19,48 +20,55 @@ error_reporting(E_ERROR | E_PARSE);
     	<p class="lead">Basic grid layouts to get you familiar with building within the Bootstrap grid system.</p>
   	</div>
 
+  	
+
 	<!-- Navigation Bar -->
-			  	<nav class="navbar navbar-inverse navbar-fixed-top">
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
+       
+          <div class="container-fluid">
+		    	<div class="navbar-header">
+		      	<a class="navbar-brand" href="#">WebSiteName</a>
+		    	</div>
+		    	<ul class="nav navbar-nav">
+		      	<li class="active"><a href="#">Home</a></li>
+		      	<li><a href="#">Page 1</a></li>
+		      	<li><a href="#">Page 2</a></li>
+		      	<li><a href="#">Page 3</a></li>
+		    	</ul>
+		  </div>
+          
         </div>
  
         <div id="navbar" class="navbar-collapse collapse">
           	<ul class="nav navbar-nav navbar-right">
+          			 <!-- Search Button -->  
 					<form class="navbar-form navbar-left">
-					  <!-- <div class="input-group">
-					    <input type="text" class="form-control input-sm" placeholder="Search">
-					    	<div class="input-group-btn">
-					      	<button class="btn btn-default" type="submit">
-					        <i class="glyphicon glyphicon-search"></i>
-					      	</button>
-					    	</div>
-					  </div> -->
-					  <div class = "input-group">
-         <input type = "text" class =" form-control">
-         <span class = "input-group-addon" style="cursor:pointer;"><i class="glyphicon glyphicon-search"></i></span>
-      </div>
+						<div class = "input-group">
+				         	<input type = "text" class =" form-control" placeholder="Search here..">
+				         	<span class = "input-group-addon" style="cursor:pointer;"><i class="glyphicon glyphicon-search"></i></span>
+				      	</div>
 					</form>
+					 <!-- ./Search Button -->
 		      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 		      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 		    </ul>
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
+    
 	<!-- ./Nav Bar -->
 
 	<div class="row">
 
 		<div class="col-md-12">
 
-			<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addModal">Add New Data</button><br/><br/>
+			<button class="btn btn-primary btn-sm" id="addModalButton">Add New Data</button>
+
+			<a href="#"><span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="bottom" title="Tambah Data!"></span></a>
+			<br/><br/>
 
 			<!-- Modal -->
 			<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -68,6 +76,7 @@ error_reporting(E_ERROR | E_PARSE);
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        
 			        <h4 class="modal-title" id="myModalLabel">Add a User</h4>
 			      </div>
 			      <div class="modal-body">
@@ -111,11 +120,11 @@ error_reporting(E_ERROR | E_PARSE);
 
 			<thead class="bg-warning">
 				<tr>
-					<th width="3%">No</th>
+					<th width="1%">No</th>
 					<th width="20%">Name</th>
 					<th width="5%">Age</th>
 					<th width="15%">Email</th>
-					<th width="5%"><span class="pull-right">Update</span></th>
+					<th width="1%"><span class="pull-right">Action</span></th>
 				</tr>
 			</thead>
 
@@ -180,7 +189,14 @@ error_reporting(E_ERROR | E_PARSE);
 
 <script type="text/javascript">
 
+	$('[data-toggle="tooltip"]').tooltip();   
+
 	getData();
+
+	$(document).on('click', '#addModalButton', function(){
+		$('#addModal input').val('');
+		$('#addModal').modal({show: true, backdrop: 'static'})
+	});
 
 	function getData() {
 		$.ajax({
@@ -197,8 +213,8 @@ error_reporting(E_ERROR | E_PARSE);
 	                dataUser += '<td>'+value.name+'</td>';
 	                dataUser += '<td>'+value.age+'</td>';
 	                dataUser += '<td>'+value.email+'</td>';
-	                dataUser += '<td><span class="pull-right"><button class="detail-btn btn btn-success btn-xs btn-flat">DETAIL</button> ';
-	                dataUser += '<button class="delete-btn btn btn-danger btn-xs btn-flat delete-ads">DELETE</button></span></td>';
+	                dataUser += '<td><span class="pull-right"><button class="detail-btn btn btn-success btn-xs btn-flat fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Edit Detail"></button> ';
+	                dataUser += '<button class="delete-btn btn btn-danger btn-xs btn-flat delete-ads fa fa-times" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Hapus Detail"></button></span></td>';
 	                dataUser += '<tr>';
 	                no++;
 	            });
