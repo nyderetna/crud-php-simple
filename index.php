@@ -1,14 +1,15 @@
 <?php
 //for development only
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
-error_reporting(E_ERROR | E_PARSE);
 //end for development only
 ?>
 <html>
 <head>	
-	<title>Homepage</title>
+	<title>DANIEL</title>
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/font-awesome.css">
 </head>
 
 <body>
@@ -16,12 +17,9 @@ error_reporting(E_ERROR | E_PARSE);
 <div class="container">
 
 	<div class="page-header" style="margin-top: 60px;">
-    	<h1>Bootstrap grid examples</h1>
-    	<p class="lead">Basic grid layouts to get you familiar with building within the Bootstrap grid system.</p>
+    	<h1>LATIHAN <i class="fa fa-anchor" aria-hidden="true" style="color: black;"></i></h1>
+    	<p class="lead">Berlatih kembali dari dasar.</p>
   	</div>
-
-  	
-
 	<!-- Navigation Bar -->
 	
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -30,11 +28,11 @@ error_reporting(E_ERROR | E_PARSE);
        
           <div class="container-fluid">
 		    	<div class="navbar-header">
-		      	<a class="navbar-brand" href="#">WebSiteName</a>
+		      	<a class="navbar-brand" href="#"><i class="fa fa-facebook-square" aria-hidden="true"> DanielPaulyR</i></a>
 		    	</div>
 		    	<ul class="nav navbar-nav">
 		      	<li class="active"><a href="#">Home</a></li>
-		      	<li><a href="#">Page 1</a></li>
+		      	<li><a href="/views/chart.php">Chart</a></li>
 		      	<li><a href="#">Page 2</a></li>
 		      	<li><a href="#">Page 3</a></li>
 		    	</ul>
@@ -81,7 +79,7 @@ error_reporting(E_ERROR | E_PARSE);
 			      </div>
 			      <div class="modal-body">
 
-			        <form class="form-horizontal">
+			        <form class="form-horizontal" id="addForm">
 
 					  <div class="form-group">
 					    <label for="name" class="col-sm-2 control-label">Name</label>
@@ -121,10 +119,11 @@ error_reporting(E_ERROR | E_PARSE);
 			<thead class="bg-warning">
 				<tr>
 					<th width="1%">No</th>
-					<th width="20%">Name</th>
+					<th width="5%">Name</th>
 					<th width="5%">Age</th>
-					<th width="15%">Email</th>
-					<th width="1%"><span class="pull-right">Action</span></th>
+					<th width="4%">Email</th>
+					<th width="5%">Tanggal Buat</th>
+					<th width="3%"><span class="pull-right">Action</span></th>
 				</tr>
 			</thead>
 
@@ -186,6 +185,8 @@ error_reporting(E_ERROR | E_PARSE);
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/moment-with-locales.min.js"></script>
 
 <script type="text/javascript">
 
@@ -213,8 +214,9 @@ error_reporting(E_ERROR | E_PARSE);
 	                dataUser += '<td>'+value.name+'</td>';
 	                dataUser += '<td>'+value.age+'</td>';
 	                dataUser += '<td>'+value.email+'</td>';
-	                dataUser += '<td><span class="pull-right"><button class="detail-btn btn btn-success btn-xs btn-flat fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Edit Detail"></button> ';
-	                dataUser += '<button class="delete-btn btn btn-danger btn-xs btn-flat delete-ads fa fa-times" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Hapus Detail"></button></span></td>';
+	                dataUser += '<td>'+moment(value.createdAt).format('LLLL')+'</td>';
+	                dataUser += '<td><span class="pull-right"><button class="detail-btn btn btn-info btn-xs btn-flat fa fa-file-o fa-2x" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Edit Detail"></button> ';
+	                dataUser += '<button class="delete-btn btn btn-danger btn-xs btn-flat delete-ads fa fa-times fa-2x" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Hapus Detail"></button></span></td>';
 	                dataUser += '<tr>';
 	                no++;
 	            });
@@ -227,18 +229,25 @@ error_reporting(E_ERROR | E_PARSE);
 
 	$(document).on('click', '#submitData', function(){
 
-		var formData = {
-			name: $('#addModal input[name="name"]').val(),
-			age: $('#addModal #age').val(),
-			email: $('#addModal #email').val()
-		}
+		// var formData = {
+		// 	name: $('#addModal input[name="name"]').val(),
+		// 	age: $('#addModal #age').val(),
+		// 	email: $('#addModal #email').val()
+		// }
+
+		var formSer = $('#addForm').serializeArray();
+
+		// console.log(formSer);
 
 		$.ajax({
 			url: 'add.php',
 			type: 'POST',
-			data: formData,
+			data: formSer,
 			success: function(data, textStatus, jqXHR){
+				// var data = JSON.parse(data);
 				if (jqXHR.status == 200) {
+					
+					// data.createdAt = new Date();
 					$('#addModal').modal('hide');
 					getData();
 				}

@@ -12,7 +12,8 @@ while ($row = mysqli_fetch_array($result)) {
     "id" 	=> $row['id'],
     "name" 	=> $row['name'],
     "age"  	=> $row['age'],
-    "email" => $row['email']
+    "email" => $row['email'],
+    "createdAt" => $row['createdAt']
   );
 }
 
